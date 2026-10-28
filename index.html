@@ -5,28 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monde du Pompier - Connexion</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: { extend: { colors: { brand: { red: '#dc2626', dark: '#0f172a', card: '#1e293b' } } } }
-    }
-  </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
   <!-- Navigation -->
-  <nav class="border-b border-slate-800 bg-slate-900/80 backdrop-blur p-4 flex justify-between items-center">
+  <nav class="border-b border-slate-800 bg-slate-900 p-4 flex justify-between items-center">
     <div class="flex items-center space-x-2">
       <span class="text-2xl">🚒</span>
       <h1 class="font-bold text-xl text-red-500">Monde du Pompier</h1>
     </div>
     <div class="space-x-4">
       <a href="cours/index.html" class="hover:text-red-400">Cours</a>
-      <a href="quiz/index.html" class="hover:text-red-400">Quiz</a>
+      <a href="questionnaire/index.html" class="hover:text-red-400">Quiz</a>
     </div>
   </nav>
 
-  <!-- Formulaire d'authentification -->
-  <main class="max-w-md w-full mx-auto p-6 bg-slate-800 rounded-xl shadow-2xl border border-slate-700 my-10">
+  <!-- Formulaire -->
+  <main class="max-w-md w-full mx-auto p-6 bg-slate-800 rounded-xl border border-slate-700 my-10 shadow-xl">
     <h2 id="form-title" class="text-2xl font-bold text-center text-red-500 mb-6">Connexion</h2>
     
     <form id="auth-form" class="space-y-4">
@@ -37,13 +31,13 @@
           <option value="SPV">SPV (Sapeur-Pompier Volontaire)</option>
           <option value="SPP">SPP (Sapeur-Pompier Professionnel)</option>
           <option value="SPM">SPM (Militaire / BSPP / BMPM)</option>
-          <option value="Militaire">Militaire (Terre/Air/Mer)</option>
+          <option value="Militaire">Militaire (Terre / Air / Mer)</option>
           <option value="Civil">Civil / Passionné</option>
         </select>
       </div>
 
       <div>
-        <label class="block text-sm font-medium mb-1">Email</label>
+        <label class="block text-sm font-medium mb-1">Adresse Email</label>
         <input type="email" id="email" required class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white">
       </div>
 
@@ -59,16 +53,15 @@
 
     <div class="mt-4 text-center">
       <button id="toggle-auth" class="text-sm text-slate-400 hover:text-white underline">
-        Pas de compte ? S'inscrire
+        Pas encore de compte ? S'inscrire
       </button>
     </div>
   </main>
 
   <footer class="border-t border-slate-800 p-4 text-center text-xs text-slate-500">
-    © Monde du Pompier - Communauté SP, JSP, Militaires & Civils
+    © Monde du Pompier - Communauté Théorique & Pratique
   </footer>
 
-  <!-- Script Firebase -->
   <script type="module" src="js/firebase.js"></script>
 </body>
 </html>
