@@ -2,20 +2,22 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Remplace par tes clés Firebase issues de la console (Paramètres du projet)
+// ===>>> C'est ICI qu'il faut coller ton "firebaseConfig" avec tes vraies clés <<<===
 const firebaseConfig = {
-  apiKey: "VOTRE_API_KEY",
+  apiKey: "AIzaSy...", 
   authDomain: "monde-du-pompier.firebaseapp.com",
   databaseURL: "https://monde-du-pompier-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "monde-du-pompier",
   storageBucket: "monde-du-pompier.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abc123def456"
+  messagingSenderId: "...",
+  appId: "..."
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
+
+// Le reste de ton code d'authentification...
 
 let isSignup = false;
 
