@@ -1,32 +1,90 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr" class="dark" id="html-root">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monde du Pompier - Connexion</title>
+  <title>Monde du Pompier - Connexion & Paramètres</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#ef4444',
+              dark: '#dc2626',
+            }
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+<body id="body-root" class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300">
+  
   <!-- Navigation -->
-  <nav class="border-b border-slate-800 bg-slate-900 p-4 flex justify-between items-center">
+  <nav class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md p-4 flex justify-between items-center sticky top-0 z-50">
     <div class="flex items-center space-x-2">
-      <span class="text-2xl">🚒</span>
-      <h1 class="font-bold text-xl text-red-500">Monde du Pompier</h1>
+      <span class="text-2xl animate-pulse">🚒</span>
+      <h1 class="font-bold text-xl text-red-500 tracking-wide">Monde du Pompier</h1>
     </div>
-    <div class="space-x-4">
-      <a href="cours/index.html" class="hover:text-red-400">Cours</a>
-      <a href="questionnaire/index.html" class="hover:text-red-400">Quiz</a>
+    <div class="flex items-center space-x-4">
+      <a href="cours/index.html" class="hover:text-red-400 transition font-medium">Cours</a>
+      <a href="questionnaire/index.html" class="hover:text-red-400 transition font-medium">Quiz</a>
+      <!-- Bouton Paramètres -->
+      <button onclick="toggleSettings()" class="bg-slate-800 hover:bg-slate-700 p-2 rounded-lg border border-slate-700 transition flex items-center space-x-1 text-sm">
+        <span>⚙️</span> <span class="hidden sm:inline">Options</span>
+      </button>
     </div>
   </nav>
 
-  <!-- Formulaire -->
-  <main class="max-w-md w-full mx-auto p-6 bg-slate-800 rounded-xl border border-slate-700 my-10 shadow-xl">
-    <h2 id="form-title" class="text-2xl font-bold text-center text-red-500 mb-6">Connexion</h2>
+  <!-- Panneau de Paramètres Avancés (Caché par défaut) -->
+  <div id="settings-panel" class="hidden max-w-md w-full mx-auto mt-6 p-5 bg-slate-800/90 backdrop-blur-md rounded-2xl border border-slate-700 shadow-2xl transition-all">
+    <div class="flex justify-between items-center mb-4 border-b border-slate-700 pb-2">
+      <h3 class="font-bold text-lg text-red-400 flex items-center gap-2">🎨 Paramètres d'interface</h3>
+      <button onclick="toggleSettings()" class="text-slate-400 hover:text-white text-sm">✕ Fermer</button>
+    </div>
+    <div class="space-y-4 text-sm">
+      <!-- Choix du Thème de couleur -->
+      <div>
+        <label class="block font-medium mb-1">Couleur principale</label>
+        <div class="flex gap-2">
+          <button onclick="setThemeColor('red')" class="w-8 h-8 rounded-full bg-red-600 hover:scale-110 transition ring-2 ring-offset-2 ring-offset-slate-800 ring-red-500"></button>
+          <button onclick="setThemeColor('blue')" class="w-8 h-8 rounded-full bg-blue-600 hover:scale-110 transition"></button>
+          <button onclick="setThemeColor('amber')" class="w-8 h-8 rounded-full bg-amber-600 hover:scale-110 transition"></button>
+          <button onclick="setThemeColor('emerald')" class="w-8 h-8 rounded-full bg-emerald-600 hover:scale-110 transition"></button>
+        </div>
+      </div>
+
+      <!-- Mode Sombre / Clair -->
+      <div class="flex justify-between items-center">
+        <span class="font-medium">Mode Visuel</span>
+        <button onclick="toggleDarkMode()" id="dark-mode-btn" class="bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-600 hover:bg-slate-600 transition">
+          🌙 Sombre
+        </button>
+      </div>
+
+      <!-- Ajustement de la luminosité (fond d'écran) -->
+      <div>
+        <label class="block font-medium mb-1">Luminosité de fond</label>
+        <input type="range" id="brightness-range" min="50" max="150" value="100" oninput="adjustBrightness(this.value)" class="w-full accent-red-500 cursor-pointer">
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulaire principal -->
+  <main class="max-w-md w-full mx-auto p-8 bg-slate-800/80 backdrop-blur-xl rounded-2xl border border-slate-700/80 my-auto shadow-2xl transition-all">
+    <div class="text-center mb-6">
+      <span class="text-4xl">🧑‍🚒</span>
+      <h2 id="form-title" class="text-2xl font-extrabold text-red-500 mt-2">Connexion</h2>
+      <p class="text-xs text-slate-400 mt-1">Espace réservé aux passionnés et professionnels</p>
+    </div>
     
     <form id="auth-form" class="space-y-4">
-      <div id="grade-field" class="hidden">
-        <label class="block text-sm font-medium mb-1">Statut / Grade</label>
-        <select id="user-status" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white">
+      <div id="grade-field" class="hidden transition-all">
+        <label class="block text-sm font-medium mb-1 text-slate-300">Statut / Grade</label>
+        <select id="user-status" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
           <option value="JSP">JSP (Jeune Sapeur-Pompier)</option>
           <option value="SPV">SPV (Sapeur-Pompier Volontaire)</option>
           <option value="SPP">SPP (Sapeur-Pompier Professionnel)</option>
@@ -37,22 +95,22 @@
       </div>
 
       <div>
-        <label class="block text-sm font-medium mb-1">Adresse Email</label>
-        <input type="email" id="email" required class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white">
+        <label class="block text-sm font-medium mb-1 text-slate-300">Adresse Email</label>
+        <input type="email" id="email" required placeholder="nom@exemple.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
       </div>
 
       <div>
-        <label class="block text-sm font-medium mb-1">Mot de passe</label>
-        <input type="password" id="password" required class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white">
+        <label class="block text-sm font-medium mb-1 text-slate-300">Mot de passe</label>
+        <input type="password" id="password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
       </div>
 
-      <button type="submit" id="submit-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded transition">
+      <button type="submit" id="submit-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg shadow-lg shadow-red-600/30 transition transform active:scale-95">
         Se connecter
       </button>
     </form>
 
-    <div class="mt-4 text-center">
-      <button id="toggle-auth" class="text-sm text-slate-400 hover:text-white underline">
+    <div class="mt-6 text-center">
+      <button id="toggle-auth" class="text-sm text-slate-400 hover:text-red-400 transition underline">
         Pas encore de compte ? S'inscrire
       </button>
     </div>
@@ -62,7 +120,7 @@
     © Monde du Pompier - Communauté Théorique & Pratique
   </footer>
 
-  <!-- Script Firebase intégré directement ici -->
+  <!-- Script JavaScript (Firebase + Logique des Paramètres) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -125,6 +183,40 @@
         alert("Erreur : " + error.message);
       }
     });
+  </script>
+
+  <!-- Fonctions pour les paramètres dynamiques (Interface) -->
+  <script>
+    function toggleSettings() {
+      const panel = document.getElementById('settings-panel');
+      panel.classList.toggle('hidden');
+    }
+
+    function toggleDarkMode() {
+      const html = document.getElementById('html-root');
+      const btn = document.getElementById('dark-mode-btn');
+      html.classList.toggle('dark');
+      if (html.classList.contains('dark')) {
+        btn.textContent = "🌙 Sombre";
+        document.getElementById('body-root').className = "bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300";
+      } else {
+        btn.textContent = "☀️ Clair";
+        document.getElementById('body-root').className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between transition-colors duration-300";
+      }
+    }
+
+    function adjustBrightness(val) {
+      const body = document.getElementById('body-root');
+      body.style.filter = `brightness(${val}%)`;
+    }
+
+    function setThemeColor(color) {
+      const titles = document.querySelectorAll('#form-title, h1');
+      titles.forEach(el => {
+        el.className = el.className.replace(/text-(red|blue|amber|emerald)-500/g, '');
+        el.classList.add(`text-${color}-500`);
+      });
+    }
   </script>
 </body>
 </html>
