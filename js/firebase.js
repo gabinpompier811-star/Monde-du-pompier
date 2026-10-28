@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } f
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSy...", // <-- Mets ta vraie clé Firebase ici entre les guillemets
+  apiKey: "AIzaSyBaJBHBzjW5sGtZqVwY1CMx7PkQ6AiDgno",
   authDomain: "monde-du-pompier.firebaseapp.com",
   databaseURL: "https://monde-du-pompier-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "monde-du-pompier",
