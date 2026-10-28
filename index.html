@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monde du Pompier - Connexion & Paramètres</title>
+  <title>Monde du Pompier - Accueil & Authentification</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -11,10 +11,7 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              DEFAULT: '#ef4444',
-              dark: '#dc2626',
-            }
+            brand: { 50: '#fef2f2', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c' }
           }
         }
       }
@@ -22,105 +19,124 @@
   </script>
 </head>
 <body id="body-root" class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300">
-  
-  <!-- Navigation -->
-  <nav class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md p-4 flex justify-between items-center sticky top-0 z-50">
-    <div class="flex items-center space-x-2">
-      <span class="text-2xl animate-pulse">🚒</span>
-      <h1 class="font-bold text-xl text-red-500 tracking-wide">Monde du Pompier</h1>
-    </div>
-    <div class="flex items-center space-x-4">
-      <a href="cours/index.html" class="hover:text-red-400 transition font-medium">Cours</a>
-      <a href="questionnaire/index.html" class="hover:text-red-400 transition font-medium">Quiz</a>
-      <!-- Bouton Paramètres -->
-      <button onclick="toggleSettings()" class="bg-slate-800 hover:bg-slate-700 p-2 rounded-lg border border-slate-700 transition flex items-center space-x-1 text-sm">
-        <span>⚙️</span> <span class="hidden sm:inline">Options</span>
-      </button>
-    </div>
-  </nav>
 
-  <!-- Panneau de Paramètres Avancés (Caché par défaut) -->
-  <div id="settings-panel" class="hidden max-w-md w-full mx-auto mt-6 p-5 bg-slate-800/90 backdrop-blur-md rounded-2xl border border-slate-700 shadow-2xl transition-all">
-    <div class="flex justify-between items-center mb-4 border-b border-slate-700 pb-2">
-      <h3 class="font-bold text-lg text-red-400 flex items-center gap-2">🎨 Paramètres d'interface</h3>
-      <button onclick="toggleSettings()" class="text-slate-400 hover:text-white text-sm">✕ Fermer</button>
-    </div>
-    <div class="space-y-4 text-sm">
-      <!-- Choix du Thème de couleur -->
-      <div>
-        <label class="block font-medium mb-1">Couleur principale</label>
-        <div class="flex gap-2">
-          <button onclick="setThemeColor('red')" class="w-8 h-8 rounded-full bg-red-600 hover:scale-110 transition ring-2 ring-offset-2 ring-offset-slate-800 ring-red-500"></button>
-          <button onclick="setThemeColor('blue')" class="w-8 h-8 rounded-full bg-blue-600 hover:scale-110 transition"></button>
-          <button onclick="setThemeColor('amber')" class="w-8 h-8 rounded-full bg-amber-600 hover:scale-110 transition"></button>
-          <button onclick="setThemeColor('emerald')" class="w-8 h-8 rounded-full bg-emerald-600 hover:scale-110 transition"></button>
+  <!-- En-tête / Navigation -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-3xl">🚒</span>
+        <div>
+          <h1 class="font-bold text-lg text-red-500 tracking-wide leading-tight accent-text">MONDE DU POMPIER</h1>
+          <p class="text-[10px] text-slate-400 uppercase tracking-widest hidden sm:block">Portail National de Formation</p>
         </div>
       </div>
 
-      <!-- Mode Sombre / Clair -->
-      <div class="flex justify-between items-center">
-        <span class="font-medium">Mode Visuel</span>
-        <button onclick="toggleDarkMode()" id="dark-mode-btn" class="bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-600 hover:bg-slate-600 transition">
-          🌙 Sombre
+      <nav class="flex items-center space-x-6">
+        <a href="index.html" class="text-slate-200 hover:text-red-400 font-medium text-sm transition">Accueil</a>
+        <a href="cours/index.html" class="text-slate-400 hover:text-red-400 font-medium text-sm transition">Cours</a>
+        <a href="questionnaire/index.html" class="text-slate-400 hover:text-red-400 font-medium text-sm transition">Quiz</a>
+        
+        <!-- Bouton Paramètres -->
+        <button onclick="toggleSettingsDrawer()" class="p-2 rounded-lg bg-slate-800 border border-slate-700 hover:bg-slate-700 text-slate-300 transition" title="Paramètres">
+          ⚙️
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Volet Latéral de Paramètres Global -->
+  <aside id="settings-drawer" class="fixed inset-y-0 right-0 w-80 bg-slate-800/95 backdrop-blur-xl border-l border-slate-700 z-50 transform translate-x-full transition-transform duration-300 shadow-2xl p-6 flex flex-col justify-between">
+    <div>
+      <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-6">
+        <h3 class="font-bold text-base text-slate-100 flex items-center gap-2">⚙️ Configuration</h3>
+        <button onclick="toggleSettingsDrawer()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <div class="space-y-6 text-sm">
+        <div>
+          <label class="block font-medium text-slate-300 mb-2">Apparence</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="setThemeMode('dark')" class="px-3 py-2 rounded-lg border border-slate-700 bg-slate-900 text-slate-200 hover:border-slate-500 transition text-center text-xs font-semibold">🌙 Sombre</button>
+            <button onclick="setThemeMode('light')" class="px-3 py-2 rounded-lg border border-slate-700 bg-slate-900 text-slate-200 hover:border-slate-500 transition text-center text-xs font-semibold">☀️ Clair</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-2">Couleur d'accentuation</label>
+          <div class="flex items-center space-x-3">
+            <button onclick="setAccentColor('red')" class="w-8 h-8 rounded-full bg-red-600 ring-2 ring-offset-2 ring-offset-slate-800 transition"></button>
+            <button onclick="setAccentColor('blue')" class="w-8 h-8 rounded-full bg-blue-600 ring-2 ring-offset-2 ring-offset-slate-800 transition"></button>
+            <button onclick="setAccentColor('emerald')" class="w-8 h-8 rounded-full bg-emerald-600 ring-2 ring-offset-2 ring-offset-slate-800 transition"></button>
+            <button onclick="setAccentColor('amber')" class="w-8 h-8 rounded-full bg-amber-600 ring-2 ring-offset-2 ring-offset-slate-800 transition"></button>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="font-medium text-slate-300">Luminosité du fond</label>
+            <span id="brightness-val" class="text-xs text-slate-400">100%</span>
+          </div>
+          <input type="range" id="brightness-slider" min="60" max="120" value="100" oninput="updateBrightness(this.value)" class="w-full accent-red-500 cursor-pointer">
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-slate-700 pt-4 text-xs text-slate-500 text-center">Sauvegarde automatique</div>
+  </aside>
+
+  <div id="drawer-overlay" onclick="toggleSettingsDrawer()" class="fixed inset-0 bg-black/50 z-40 hidden backdrop-blur-sm"></div>
+
+  <!-- Contenu Principal / Formulaire -->
+  <main class="flex-grow flex items-center justify-center p-4 my-8">
+    <div class="max-w-md w-full bg-slate-800/80 backdrop-blur-md rounded-2xl border border-slate-700/80 p-8 shadow-2xl">
+      <div class="text-center mb-8">
+        <div class="inline-flex p-3 rounded-full bg-red-500/10 mb-3">
+          <span class="text-3xl">👨‍🚒</span>
+        </div>
+        <h2 id="form-title" class="text-2xl font-bold text-slate-100 accent-text">Espace Authentification</h2>
+        <p class="text-xs text-slate-400 mt-1">Accédez à vos modules de cours et évaluations</p>
+      </div>
+
+      <form id="auth-form" class="space-y-5">
+        <div id="grade-field" class="hidden">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Grade / Statut</label>
+          <select id="user-status" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition text-sm">
+            <option value="JSP">JSP (Jeune Sapeur-Pompier)</option>
+            <option value="SPV">SPV (Sapeur-Pompier Volontaire)</option>
+            <option value="SPP">SPP (Sapeur-Pompier Professionnel)</option>
+            <option value="SPM">SPM (Militaire / BSPP / BMPM)</option>
+            <option value="Militaire">Militaire (Terre / Air / Mer)</option>
+            <option value="Civil">Civil / Passionné</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Identifiant Email</label>
+          <input type="email" id="email" required placeholder="nom@domaine.fr" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Mot de passe</label>
+          <input type="password" id="password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-100 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition text-sm">
+        </div>
+
+        <button type="submit" id="submit-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl shadow-lg transition transform active:scale-[0.98] text-sm accent-bg">
+          Se connecter
+        </button>
+      </form>
+
+      <div class="mt-6 text-center border-t border-slate-700/60 pt-4">
+        <button id="toggle-auth" class="text-xs text-slate-400 hover:text-slate-200 transition">
+          Pas encore inscrit ? Créer un compte
         </button>
       </div>
-
-      <!-- Ajustement de la luminosité (fond d'écran) -->
-      <div>
-        <label class="block font-medium mb-1">Luminosité de fond</label>
-        <input type="range" id="brightness-range" min="50" max="150" value="100" oninput="adjustBrightness(this.value)" class="w-full accent-red-500 cursor-pointer">
-      </div>
-    </div>
-  </div>
-
-  <!-- Formulaire principal -->
-  <main class="max-w-md w-full mx-auto p-8 bg-slate-800/80 backdrop-blur-xl rounded-2xl border border-slate-700/80 my-auto shadow-2xl transition-all">
-    <div class="text-center mb-6">
-      <span class="text-4xl">🧑‍🚒</span>
-      <h2 id="form-title" class="text-2xl font-extrabold text-red-500 mt-2">Connexion</h2>
-      <p class="text-xs text-slate-400 mt-1">Espace réservé aux passionnés et professionnels</p>
-    </div>
-    
-    <form id="auth-form" class="space-y-4">
-      <div id="grade-field" class="hidden transition-all">
-        <label class="block text-sm font-medium mb-1 text-slate-300">Statut / Grade</label>
-        <select id="user-status" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
-          <option value="JSP">JSP (Jeune Sapeur-Pompier)</option>
-          <option value="SPV">SPV (Sapeur-Pompier Volontaire)</option>
-          <option value="SPP">SPP (Sapeur-Pompier Professionnel)</option>
-          <option value="SPM">SPM (Militaire / BSPP / BMPM)</option>
-          <option value="Militaire">Militaire (Terre / Air / Mer)</option>
-          <option value="Civil">Civil / Passionné</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1 text-slate-300">Adresse Email</label>
-        <input type="email" id="email" required placeholder="nom@exemple.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1 text-slate-300">Mot de passe</label>
-        <input type="password" id="password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-red-500 outline-none transition">
-      </div>
-
-      <button type="submit" id="submit-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg shadow-lg shadow-red-600/30 transition transform active:scale-95">
-        Se connecter
-      </button>
-    </form>
-
-    <div class="mt-6 text-center">
-      <button id="toggle-auth" class="text-sm text-slate-400 hover:text-red-400 transition underline">
-        Pas encore de compte ? S'inscrire
-      </button>
     </div>
   </main>
 
-  <footer class="border-t border-slate-800 p-4 text-center text-xs text-slate-500">
-    © Monde du Pompier - Communauté Théorique & Pratique
+  <footer class="border-t border-slate-800 bg-slate-900/50 p-4 text-center text-xs text-slate-500">
+    © Monde du Pompier — Plateforme Pédagogique Officielle
   </footer>
 
-  <!-- Script JavaScript (Firebase + Logique des Paramètres) -->
+  <!-- Script combiné : Firebase Auth/DB + Gestionnaire de Thème & Paramètres -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -142,7 +158,6 @@
     const db = getDatabase(app);
 
     let isSignup = false;
-
     const toggleBtn = document.getElementById('toggle-auth');
     const gradeField = document.getElementById('grade-field');
     const formTitle = document.getElementById('form-title');
@@ -150,10 +165,10 @@
 
     toggleBtn?.addEventListener('click', () => {
       isSignup = !isSignup;
-      formTitle.textContent = isSignup ? "Inscription" : "Connexion";
+      formTitle.textContent = isSignup ? "Inscription" : "Espace Authentification";
       submitBtn.textContent = isSignup ? "S'inscrire" : "Se connecter";
       gradeField.classList.toggle('hidden', !isSignup);
-      toggleBtn.textContent = isSignup ? "Déjà un compte ? Se connecter" : "Pas encore de compte ? S'inscrire";
+      toggleBtn.textContent = isSignup ? "Déjà un compte ? Se connecter" : "Pas encore inscrit ? Créer un compte";
     });
 
     document.getElementById('auth-form')?.addEventListener('submit', async (e) => {
@@ -185,37 +200,61 @@
     });
   </script>
 
-  <!-- Fonctions pour les paramètres dynamiques (Interface) -->
+  <!-- Logique JavaScript pour les Paramètres et le Stockage local -->
   <script>
-    function toggleSettings() {
-      const panel = document.getElementById('settings-panel');
-      panel.classList.toggle('hidden');
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedMode = localStorage.getItem('theme-mode') || 'dark';
+      const savedAccent = localStorage.getItem('theme-accent') || 'red';
+      const savedBrightness = localStorage.getItem('theme-brightness') || '100';
+
+      setThemeMode(savedMode);
+      setAccentColor(savedAccent);
+      updateBrightness(savedBrightness, false);
+    });
+
+    function toggleSettingsDrawer() {
+      document.getElementById('settings-drawer').classList.toggle('translate-x-full');
+      document.getElementById('drawer-overlay').classList.toggle('hidden');
     }
 
-    function toggleDarkMode() {
+    function setThemeMode(mode) {
       const html = document.getElementById('html-root');
-      const btn = document.getElementById('dark-mode-btn');
-      html.classList.toggle('dark');
-      if (html.classList.contains('dark')) {
-        btn.textContent = "🌙 Sombre";
-        document.getElementById('body-root').className = "bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300";
-      } else {
-        btn.textContent = "☀️ Clair";
-        document.getElementById('body-root').className = "bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between transition-colors duration-300";
-      }
-    }
-
-    function adjustBrightness(val) {
       const body = document.getElementById('body-root');
-      body.style.filter = `brightness(${val}%)`;
+
+      if (mode === 'dark') {
+        html.classList.add('dark');
+        body.className = "bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300";
+      } else {
+        html.classList.remove('dark');
+        body.className = "bg-slate-100 text-slate-900 min-h-screen flex flex-col justify-between transition-colors duration-300";
+      }
+      localStorage.setItem('theme-mode', mode);
     }
 
-    function setThemeColor(color) {
-      const titles = document.querySelectorAll('#form-title, h1');
-      titles.forEach(el => {
-        el.className = el.className.replace(/text-(red|blue|amber|emerald)-500/g, '');
-        el.classList.add(`text-${color}-500`);
+    function setAccentColor(color) {
+      const colorsMap = {
+        red: { text: 'text-red-500', bg: 'bg-red-600' },
+        blue: { text: 'text-blue-500', bg: 'bg-blue-600' },
+        emerald: { text: 'text-emerald-500', bg: 'bg-emerald-600' },
+        amber: { text: 'text-amber-500', bg: 'bg-amber-600' }
+      };
+      const selected = colorsMap[color] || colorsMap['red'];
+
+      document.querySelectorAll('.accent-text').forEach(el => {
+        el.className = el.className.replace(/text-(red|blue|emerald|amber)-500/g, '');
+        el.classList.add(selected.text);
       });
+      document.querySelectorAll('.accent-bg').forEach(el => {
+        el.className = el.className.replace(/bg-(red|blue|emerald|amber)-600/g, '');
+        el.classList.add(selected.bg);
+      });
+      localStorage.setItem('theme-accent', color);
+    }
+
+    function updateBrightness(val, save = true) {
+      document.getElementById('body-root').style.filter = `brightness(${val}%)`;
+      document.getElementById('brightness-val').textContent = `${val}%`;
+      if (save) localStorage.setItem('theme-brightness', val);
     }
   </script>
 </body>
