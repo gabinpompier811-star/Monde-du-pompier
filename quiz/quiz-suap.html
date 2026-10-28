@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz SUAP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-6">
+  <div class="max-w-2xl mx-auto bg-slate-800 p-6 rounded-xl border border-slate-700">
+    <a href="index.html" class="text-xs text-red-400 hover:underline">← Retour aux questionnaires</a>
+    <h1 class="text-2xl font-bold text-red-500 mt-2 mb-6">Quiz SUAP : Bilan & Constantes</h1>
 
+    <div id="quiz-container" class="space-y-6">
+      <!-- Question 1 -->
+      <div class="p-4 bg-slate-900 rounded-lg border border-slate-700">
+        <p class="font-semibold mb-3">1. Que signifie la lettre 'B' dans l'algorithme ABCDE ?</p>
+        <div class="space-y-2">
+          <label class="block p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer text-sm">
+            <input type="radio" name="q1" value="wrong" class="mr-2"> Blood pressure (Tension artérielle)
+          </label>
+          <label class="block p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer text-sm">
+            <input type="radio" name="q1" value="correct" class="mr-2"> Breathing (Respiration)
+          </label>
+          <label class="block p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer text-sm">
+            <input type="radio" name="q1" value="wrong" class="mr-2"> Burn (Brûlures)
+          </label>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="p-4 bg-slate-900 rounded-lg border border-slate-700">
+        <p class="font-semibold mb-3">2. Quelle est la valeur normale de la fréquence respiratoire chez un adulte au repos ?</p>
+        <div class="space-y-2">
+          <label class="block p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer text-sm">
+            <input type="radio" name="q2" value="wrong" class="mr-2"> 6 à 10 cycles/min
+          </label>
+          <label class="block p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer text-sm">
+            <input type="radio" name="q2" value="correct" class="mr-2"> 12 à 20 cycles/min
+          </label>
+          <label class="block p-2 bg-slate-800 rounded hover:bg-slate-700 cursor-pointer text-sm">
+            <input type="radio" name="q2" value="wrong" class="mr-2"> 25 à 35 cycles/min
+          </label>
+        </div>
+      </div>
+
+      <button id="validate-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded transition">
+        Valider mes réponses
+      </button>
+
+      <div id="result" class="hidden text-center p-4 bg-slate-900 rounded border border-red-500 font-bold text-lg text-red-400"></div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('validate-btn').addEventListener('click', () => {
+      let score = 0;
+      const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+      const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+
+      if (q1 === 'correct') score++;
+      if (q2 === 'correct') score++;
+
+      const res = document.getElementById('result');
+      res.classList.remove('hidden');
+      res.textContent = `Votre score : ${score} / 2`;
+    });
+  </script>
+</body>
+</html>
