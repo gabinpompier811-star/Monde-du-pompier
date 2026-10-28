@@ -1,1 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Monde du Pompier - Questionnaire & Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+  <nav class="border-b border-slate-800 bg-slate-900 p-4 flex justify-between items-center">
+    <a href="../index.html" class="font-bold text-xl text-red-500">🚒 Monde du Pompier</a>
+    <div class="space-x-4">
+      <a href="../cours/index.html" class="hover:text-red-400">Cours</a>
+      <a href="index.html" class="text-red-400 font-bold">Quiz</a>
+    </div>
+  </nav>
 
+  <main class="max-w-4xl mx-auto p-6">
+    <h2 class="text-3xl font-bold mb-2 text-red-500">Centre de Test & Quiz</h2>
+    <p class="text-slate-400 mb-8">Teste tes connaissances théoriques avec des QCM interactifs.</p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+        <h3 class="text-xl font-bold mb-2 text-white">Quiz SUAP - Généralités</h3>
+        <p class="text-sm text-slate-400 mb-4">Testez vos connaissances sur l'ABCDE, les constantes et la prise en charge des détresses.</p>
+        <a href="quiz-suap.html" class="inline-block w-full text-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded transition">Lancer le Quiz SUAP</a>
+      </div>
+
+      <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 opacity-60">
+        <h3 class="text-xl font-bold mb-2 text-white">Quiz INC - MGO & Hydraulique</h3>
+        <p class="text-sm text-slate-400 mb-4">Testez vos connaissances sur les étapes de la MGO et l'établissement des lances.</p>
+        <button disabled class="w-full bg-slate-700 text-slate-400 font-bold py-2 rounded cursor-not-allowed">Prochainement</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
